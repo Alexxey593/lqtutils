@@ -32,7 +32,7 @@
 #ifdef Q_OS_ANDROID
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QJniObject>
-#include <QtCore/private/qandroidextras_p.h>
+// #include <QtCore/private/qandroidextras_p.h>
 #else
 #include <QtAndroidExtras/QtAndroid>
 #include <QtAndroidExtras/QAndroidJniObject>
@@ -55,7 +55,6 @@ typedef QAndroidJniObject QJniObject;
 #include <functional>
 
 #include "lqtutils_ui.h"
-#include "lqtutils_qsl.h"
 #include "lqtutils_misc.h"
 
 namespace lqt {
@@ -439,11 +438,11 @@ bool QmlUtils::setBarColorLight(bool light, bool fullscreen)
             decoView.callMethod<void>("setSystemUiVisibility", "(I)V", uiVisibility);
         }
 
-        if (QtAndroidPrivate::androidSdkVersion() < 26) {
+        if (QNativeInterface::QAndroidApplication::sdkVersion() < 26) {
             qWarning() << "Not supported for SDKs < 30";
             return;
         }
-        else if (QtAndroidPrivate::androidSdkVersion() < 30) {
+        else if (QNativeInterface::QAndroidApplication::sdkVersion() < 30) {
             const jint lightStatus = QJniObject::getStaticField<jint>("android/view/View", "SYSTEM_UI_FLAG_LIGHT_STATUS_BAR");
             const jint lightNav = QJniObject::getStaticField<jint>("android/view/View", "SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR");
             jint uiVisibility = decoView.callMethod<jint>("getSystemUiVisibility", "()I");
@@ -481,7 +480,7 @@ bool QmlUtils::setNavBarColor(const QColor &color)
 {
 #if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     run_activity_thread([color] {
-        if (QtAndroidPrivate::androidSdkVersion() < 21) {
+        if (QNativeInterface::QAndroidApplication::sdkVersion() < 21) {
             qWarning() << "Not supported for SDKs < 21";
             return;
         }
@@ -504,7 +503,7 @@ bool QmlUtils::setStatusBarColor(const QColor &color)
 {
 #if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     run_activity_thread([color] {
-        if (QtAndroidPrivate::androidSdkVersion() < 21) {
+        if (QNativeInterface::QAndroidApplication::sdkVersion() < 21) {
             qWarning() << "Not supported for SDKs < 21";
             return;
         }

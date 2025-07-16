@@ -23,7 +23,7 @@
 #
 
 android {
-QT += androidextras
+# QT += androidextras
 }
 SOURCES += \
     $$PWD/lqtutils_ui.cpp \
