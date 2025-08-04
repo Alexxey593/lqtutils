@@ -59,6 +59,8 @@ typedef QAndroidJniObject QJniObject;
 
 namespace lqt {
 
+QmlUtils::~QmlUtils() = default;
+
 #ifdef Q_OS_ANDROID
 inline QJniObject get_activity()
 {

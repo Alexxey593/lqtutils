@@ -72,6 +72,7 @@ class QmlUtils : public QObject
     Q_OBJECT
 public:
     QmlUtils(QObject* parent = nullptr) : QObject(parent) {}
+    virtual ~QmlUtils(); // Add this line
 
     Q_INVOKABLE void singleShot(int msec, QJSValue callback);
     Q_INVOKABLE static double safeAreaBottomInset();
