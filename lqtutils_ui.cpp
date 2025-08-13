@@ -679,4 +679,8 @@ void AndroidSystemNotification::send()
 }
 #endif // Q_OS_ANDROID
 
+#ifdef Q_OS_DARWIN
+    void AppleSystemNotification::send() {};
+#endif
+
 } // namespace
